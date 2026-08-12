@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dispatch — Language Translation Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="sheet">
+    <header class="sheet__header">
+      <div class="stamp-mark">
+        <svg viewBox="0 0 60 60" width="42" height="42" aria-hidden="true">
+          <circle cx="30" cy="30" r="27" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="4 3"/>
+          <path d="M18 30 L28 40 L42 22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="sheet__title">
+        <p class="eyebrow">No. 001 — Dispatch Form</p>
+        <h1>Translation Tool</h1>
+      </div>
+    </header>
+
+    <div class="panes">
+      <!-- SOURCE PANE -->
+      <section class="pane">
+        <div class="pane__bar">
+          <label for="sourceLang" class="pane__label">From</label>
+          <select id="sourceLang" class="lang-select"></select>
+        </div>
+        <textarea id="sourceText" class="pane__text" placeholder="Type or paste text to translate…" maxlength="4000"></textarea>
+        <div class="pane__footer">
+          <span id="sourceCount" class="char-count">0 / 4000</span>
+          <button id="clearBtn" class="text-btn" type="button">Clear</button>
+        </div>
+      </section>
+
+      <!-- SWAP CONTROL -->
+      <div class="swap-wrap">
+        <button id="swapBtn" class="swap-btn" type="button" title="Swap languages" aria-label="Swap languages">
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+            <path d="M7 7h11l-3-3M17 17H6l3 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- TARGET PANE -->
+      <section class="pane pane--target">
+        <div class="pane__bar">
+          <label for="targetLang" class="pane__label">To</label>
+          <select id="targetLang" class="lang-select"></select>
+        </div>
+        <div class="pane__text pane__text--output" id="targetText" aria-live="polite">
+          <span class="placeholder">Translation will appear here…</span>
+        </div>
+        <div class="pane__footer">
+          <span id="statusMsg" class="status-msg"></span>
+          <div class="output-actions">
+            <button id="speakBtn" class="icon-btn" type="button" title="Listen" aria-label="Listen to translation">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z" fill="currentColor"/><path d="M16.5 8.5a5 5 0 010 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+            </button>
+            <button id="copyBtn" class="icon-btn" type="button" title="Copy" aria-label="Copy translation">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a1 1 0 011-1h10" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+              <span id="copyLabel">Copy</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <button id="translateBtn" class="translate-btn" type="button">Translate</button>
+    <p class="footnote">Powered by LibreTranslate via a local FastAPI relay running at <code>localhost:8000</code></p>
+  </div>
+
+<script src="config.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
