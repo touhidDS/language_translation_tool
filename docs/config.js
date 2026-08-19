@@ -1,6 +1,4 @@
-// Change this ONE line after you deploy the backend (e.g. to Render/Railway).
-// Keep it as localhost while developing on your own machine.
+// Backend URL - only needs to change here if the API gets redeployed elsewhere
 window.APP_CONFIG = {
   API_BASE: "https://language-translation-tool-wrjh.onrender.com",
-  // Example once deployed: "https://translator-backend.onrender.com"
 };
