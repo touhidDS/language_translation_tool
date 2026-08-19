@@ -1,15 +1,3 @@
-"""
-Language Translation Tool - Backend
-------------------------------------
-FastAPI server that receives text from the frontend and translates it
-using deep-translator's GoogleTranslator wrapper (free, no API key,
-no signup, no shared daily quota like MyMemory's free tier has).
-
-To move to the official Google Cloud Translation or Microsoft Azure
-Translator later, replace the call inside translate_text() and add
-your API key as an environment variable (never hardcode it).
-"""
-
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -30,7 +18,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Static language list for the dropdowns
 LANGUAGES = [
     {"code": "en", "name": "English"}, {"code": "bn", "name": "Bengali"},
     {"code": "es", "name": "Spanish"}, {"code": "fr", "name": "French"},
@@ -47,7 +34,7 @@ LANGUAGES = [
 
 class TranslateRequest(BaseModel):
     text: str
-    source: str = "auto"   # "auto" = auto-detect source language
+    source: str = "auto"
     target: str = "en"
 
 
@@ -58,14 +45,12 @@ def root():
 
 @app.get("/languages")
 async def get_languages():
-    """Static language list used to populate the frontend dropdowns."""
     return LANGUAGES
 
 
 def resolve_source_language(text: str, source: str) -> str:
-    """GoogleTranslator accepts 'auto' directly and handles detection
-    itself, so this is only used to report the detected language back
-    to the frontend for display purposes."""
+    # GoogleTranslator handles "auto" detection internally, this is
+    # just so we can show the user what language it picked
     if source != "auto" or detect_language is None:
         return source
     try:
@@ -77,7 +62,6 @@ def resolve_source_language(text: str, source: str) -> str:
 
 @app.post("/translate")
 async def translate_text(req: TranslateRequest):
-    """Translate text using GoogleTranslator (via deep-translator)."""
     if not req.text.strip():
         raise HTTPException(status_code=400, detail="Text field is empty")
 
