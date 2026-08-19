@@ -1,5 +1,4 @@
-// Reads from config.js - change ONE line there when you deploy the backend,
-// instead of editing this file.
+// API_BASE comes from config.js so the backend URL only has to change in one place
 const API_BASE = window.APP_CONFIG.API_BASE;
 
 const sourceLangEl = document.getElementById("sourceLang");
@@ -16,12 +15,12 @@ const copyLabel = document.getElementById("copyLabel");
 
 let currentTranslation = "";
 
-// Fallback language list, used if the backend/languages call fails
+// used only if the /languages call fails, so the dropdowns aren't empty
 const FALLBACK_LANGS = [
   { code: "en", name: "English" }, { code: "bn", name: "Bengali" },
   { code: "es", name: "Spanish" }, { code: "fr", name: "French" },
   { code: "de", name: "German" }, { code: "hi", name: "Hindi" },
-  { code: "ar", name: "Arabic" }, { code: "zh", name: "Chinese" },
+  { code: "ar", name: "Arabic" }, { code: "zh-CN", name: "Chinese" },
   { code: "ja", name: "Japanese" }, { code: "ru", name: "Russian" },
   { code: "ur", name: "Urdu" }, { code: "pt", name: "Portuguese" },
 ];
@@ -35,7 +34,7 @@ async function loadLanguages() {
       if (Array.isArray(data) && data.length) langs = data;
     }
   } catch (e) {
-    // backend not reachable yet — fallback list is used
+    // backend might be waking up from sleep (Render free tier), fallback list covers it
   }
 
   sourceLangEl.innerHTML = `<option value="auto">Auto-detect</option>` +
